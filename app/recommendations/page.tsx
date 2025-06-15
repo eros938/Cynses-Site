@@ -1,7 +1,9 @@
 "use client"
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
 import { SidebarTrigger } from "@/components/ui/sidebar"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, PieChart, Pie, Cell } from "recharts"
 import { CheckCircle, Clock, AlertTriangle, Shield } from "lucide-react"
@@ -105,10 +107,12 @@ export default function Recommendations() {
         <SidebarTrigger />
         <div>
           <h1 className="text-2xl font-bold">Security Recommendations</h1>
-          <p className="text-sm text-muted-foreground">Action items, mitigation strategies, and security improvements</p>
+          <p className="text-sm text-muted-foreground">
+            Action items, mitigation strategies, and security improvements
+          </p>
         </div>
       </header>
-      
+
       <div className="flex-1 overflow-auto p-6">
         <div className="space-y-6">
           {/* Key Metrics */}
@@ -123,7 +127,7 @@ export default function Recommendations() {
                 <p className="text-xs text-muted-foreground">Recommended actions</p>
               </CardContent>
             </Card>
-            
+
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Critical Priority</CardTitle>
@@ -134,7 +138,7 @@ export default function Recommendations() {
                 <p className="text-xs text-muted-foreground">Immediate action required</p>
               </CardContent>
             </Card>
-            
+
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Completion Rate</CardTitle>
@@ -145,7 +149,7 @@ export default function Recommendations() {
                 <p className="text-xs text-muted-foreground">Actions completed</p>
               </CardContent>
             </Card>
-            
+
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Est. Timeline</CardTitle>
@@ -178,16 +182,18 @@ export default function Recommendations() {
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
                       <Pie
-                        data={priorityDistribution.filter(p => p.count > 0)}
+                        data={priorityDistribution.filter((p) => p.count > 0)}
                         cx="50%"
                         cy="50%"
                         outerRadius={60}
                         dataKey="count"
                         label={({ priority, count }) => `${priority}: ${count}`}
                       >
-                        {priorityDistribution.filter(p => p.count > 0).map((entry, index) => (
-                          <Cell key={`cell-${index}`} fill={entry.color} />
-                        ))}
+                        {priorityDistribution
+                          .filter((p) => p.count > 0)
+                          .map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill={entry.color} />
+                          ))}
                       </Pie>
                       <ChartTooltip content={<ChartTooltipContent />} />
                     </PieChart>
@@ -213,4 +219,288 @@ export default function Recommendations() {
                       <XAxis dataKey="effort" />
                       <YAxis />
                       <ChartTooltip content={<ChartTooltipContent />} />
-                      <Bar dataKey="count" fill="#ea580c"\
+                      <Bar dataKey="count" fill="#ea580c" />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </ChartContainer>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Implementation Timeline</CardTitle>
+                <CardDescription>Actions by timeframe</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ChartContainer
+                  config={{
+                    actions: { label: "Actions", color: "#6366f1" },
+                  }}
+                  className="h-[200px]"
+                >
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={implementationTimeline}>
+                      <XAxis dataKey="timeframe" angle={-45} textAnchor="end" height={80} fontSize={10} />
+                      <YAxis />
+                      <ChartTooltip content={<ChartTooltipContent />} />
+                      <Bar dataKey="actions" fill="#6366f1" />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </ChartContainer>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Immediate Actions */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Immediate Actions Required</CardTitle>
+              <CardDescription>Critical and high-priority actions that need immediate attention</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Action</TableHead>
+                    <TableHead>Priority</TableHead>
+                    <TableHead>Timeframe</TableHead>
+                    <TableHead>Impact</TableHead>
+                    <TableHead>Effort</TableHead>
+                    <TableHead>Status</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {immediateActions.map((action, index) => (
+                    <TableRow key={index}>
+                      <TableCell className="max-w-[300px]">{action.action}</TableCell>
+                      <TableCell>
+                        <Badge
+                          variant={action.priority === "Critical" ? "destructive" : "default"}
+                          className={action.priority === "High" ? "bg-orange-600" : ""}
+                        >
+                          {action.priority}
+                        </Badge>
+                      </TableCell>
+                      <TableCell>{action.timeframe}</TableCell>
+                      <TableCell className="max-w-[200px]">{action.impact}</TableCell>
+                      <TableCell>
+                        <Badge
+                          variant="outline"
+                          className={
+                            action.effort === "Low"
+                              ? "text-green-600 border-green-600"
+                              : action.effort === "Medium"
+                                ? "text-yellow-600 border-yellow-600"
+                                : "text-red-600 border-red-600"
+                          }
+                        >
+                          {action.effort}
+                        </Badge>
+                      </TableCell>
+                      <TableCell>
+                        <Badge variant="outline" className="text-red-600 border-red-600">
+                          {action.status}
+                        </Badge>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+
+          {/* Long-term Actions */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Long-term Security Improvements</CardTitle>
+              <CardDescription>Strategic actions to improve overall security posture</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Action</TableHead>
+                    <TableHead>Priority</TableHead>
+                    <TableHead>Timeframe</TableHead>
+                    <TableHead>Impact</TableHead>
+                    <TableHead>Effort</TableHead>
+                    <TableHead>Status</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {longTermActions.map((action, index) => (
+                    <TableRow key={index}>
+                      <TableCell className="max-w-[300px]">{action.action}</TableCell>
+                      <TableCell>
+                        <Badge
+                          variant={action.priority === "High" ? "default" : "outline"}
+                          className={
+                            action.priority === "High"
+                              ? "bg-orange-600"
+                              : action.priority === "Medium"
+                                ? "bg-yellow-600"
+                                : ""
+                          }
+                        >
+                          {action.priority}
+                        </Badge>
+                      </TableCell>
+                      <TableCell>{action.timeframe}</TableCell>
+                      <TableCell className="max-w-[200px]">{action.impact}</TableCell>
+                      <TableCell>
+                        <Badge
+                          variant="outline"
+                          className={
+                            action.effort === "Low"
+                              ? "text-green-600 border-green-600"
+                              : action.effort === "Medium"
+                                ? "text-yellow-600 border-yellow-600"
+                                : "text-red-600 border-red-600"
+                          }
+                        >
+                          {action.effort}
+                        </Badge>
+                      </TableCell>
+                      <TableCell>
+                        <Badge variant="outline" className="text-blue-600 border-blue-600">
+                          {action.status}
+                        </Badge>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+
+          {/* Security Policies */}
+          <div className="grid gap-6 md:grid-cols-2">
+            <Card>
+              <CardHeader>
+                <CardTitle>Recommended Security Policies</CardTitle>
+                <CardDescription>Policy updates to prevent similar incidents</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                    <h4 className="font-medium">PowerShell Execution Policy</h4>
+                    <p className="text-sm text-muted-foreground">
+                      Implement constrained language mode and require script signing
+                    </p>
+                  </div>
+                  <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                    <h4 className="font-medium">WebDAV Access Control</h4>
+                    <p className="text-sm text-muted-foreground">
+                      Disable WebDAV if not required, or implement strict access controls
+                    </p>
+                  </div>
+                  <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                    <h4 className="font-medium">Application Whitelisting</h4>
+                    <p className="text-sm text-muted-foreground">
+                      Only allow approved applications to execute on endpoints
+                    </p>
+                  </div>
+                  <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                    <h4 className="font-medium">Network Segmentation</h4>
+                    <p className="text-sm text-muted-foreground">Isolate critical systems and limit lateral movement</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Detection & Monitoring Enhancements</CardTitle>
+                <CardDescription>Improvements to security monitoring capabilities</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  <div className="p-3 bg-green-50 rounded-lg border border-green-200">
+                    <h4 className="font-medium">Enhanced Logging</h4>
+                    <p className="text-sm text-muted-foreground">
+                      Enable detailed PowerShell and process execution logging
+                    </p>
+                  </div>
+                  <div className="p-3 bg-green-50 rounded-lg border border-green-200">
+                    <h4 className="font-medium">Behavioral Analysis</h4>
+                    <p className="text-sm text-muted-foreground">
+                      Deploy tools to detect unusual process and network behavior
+                    </p>
+                  </div>
+                  <div className="p-3 bg-green-50 rounded-lg border border-green-200">
+                    <h4 className="font-medium">Threat Intelligence Integration</h4>
+                    <p className="text-sm text-muted-foreground">
+                      Integrate multiple threat intelligence feeds for better detection
+                    </p>
+                  </div>
+                  <div className="p-3 bg-green-50 rounded-lg border border-green-200">
+                    <h4 className="font-medium">Automated Response</h4>
+                    <p className="text-sm text-muted-foreground">
+                      Implement SOAR capabilities for faster incident response
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Implementation Roadmap */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Implementation Roadmap</CardTitle>
+              <CardDescription>Phased approach to implementing security improvements</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div className="flex items-start gap-4 p-4 bg-red-50 rounded-lg border border-red-200">
+                  <div className="w-8 h-8 bg-red-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
+                    1
+                  </div>
+                  <div>
+                    <h4 className="font-medium">Phase 1: Immediate Response (0-24 hours)</h4>
+                    <ul className="text-sm text-muted-foreground mt-1 space-y-1">
+                      <li>• Isolate compromised host</li>
+                      <li>• Block malicious IP addresses</li>
+                      <li>• Conduct initial forensic analysis</li>
+                      <li>• Review and restrict PowerShell policies</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4 p-4 bg-orange-50 rounded-lg border border-orange-200">
+                  <div className="w-8 h-8 bg-orange-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
+                    2
+                  </div>
+                  <div>
+                    <h4 className="font-medium">Phase 2: Short-term Improvements (1-4 weeks)</h4>
+                    <ul className="text-sm text-muted-foreground mt-1 space-y-1">
+                      <li>• Update Suricata detection rules</li>
+                      <li>• Enhance PowerShell logging</li>
+                      <li>• Deploy additional endpoint protection</li>
+                      <li>• Implement network monitoring improvements</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                  <div className="w-8 h-8 bg-yellow-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
+                    3
+                  </div>
+                  <div>
+                    <h4 className="font-medium">Phase 3: Long-term Strategy (1-6 months)</h4>
+                    <ul className="text-sm text-muted-foreground mt-1 space-y-1">
+                      <li>• Implement comprehensive network segmentation</li>
+                      <li>• Deploy advanced threat detection platforms</li>
+                      <li>• Establish security awareness training program</li>
+                      <li>• Regular security assessments and penetration testing</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </div>
+  )
+}
