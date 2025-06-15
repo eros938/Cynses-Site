@@ -8,7 +8,7 @@ import { AppSidebar } from "@/components/app-sidebar"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "CyberSec Analytics Dashboard",
+  title: "Cynses Ai Dashboard",
   description: "Advanced cybersecurity analysis and threat intelligence dashboard",
     generator: 'v0.dev'
 }
