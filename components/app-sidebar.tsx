@@ -66,8 +66,8 @@ export function AppSidebar() {
         <div className="flex items-center gap-2 px-2 py-2">
           <Shield className="h-6 w-6 text-red-600" />
           <div>
-            <h2 className="text-lg font-semibold">CyberSec Analytics</h2>
-            <p className="text-xs text-muted-foreground">Security Operations Center</p>
+            <h2 className="text-lg font-semibold">Cynses AI</h2>
+            <p className="text-xs text-muted-foreground">Choking eyes.</p>
           </div>
         </div>
       </SidebarHeader>
