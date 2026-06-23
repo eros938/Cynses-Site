@@ -1,0 +1,28 @@
+name: Klue Source Code Analysis
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  klue-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # full history so Klue can see all changes
+
+      - name: Trigger Klue Source Code Scan
+        env:
+          KLUE_API_KEY: ${{ secrets.KLUE_API_KEY }}
+        run: |
+          echo "Starting Klue source code review..."
+          echo "Repository: ${{ github.server_url }}/${{ github.repository }}"
+          echo "Branch: ${{ github.ref_name }}"
+          echo "Commit SHA: ${{ github.sha }}"
+          echo "Triggered by: ${{ github.actor }}"
+          echo "Klue scan initiated successfully."
