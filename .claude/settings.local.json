@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh api *)",
+      "WebFetch(domain:github.com)",
+      "Bash(where nmap *)",
+      "Bash(python3 -c \"import impacket; print\\('impacket ok'\\)\")",
+      "Bash(where bloodyAD)",
+      "PowerShell(wsl --list --verbose 2>&1)",
+      "PowerShell(wsl echo \"WSL available\" 2>&1)"
+    ]
+  }
+}

